@@ -24,17 +24,6 @@ struct QuantiParam : dmlc::Parameter<QuantiParam> {
   }
 };
 
-namespace mshadow_op {
-struct clip_ex {
-  template <typename DType>
-  MSHADOW_XINLINE static DType Map(DType v, DType min, DType max) {
-    if (v < min) return min;
-    if (v > max) return max;
-    return v;
-  }
-};
-}  // namespace mshadow_op
-
 template <typename xpu, typename DType>
 class QuantiOp : public Operator {
  public:
