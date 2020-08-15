@@ -426,12 +426,10 @@ void RegisterLegacyOpProp() {
     if (op.attr_parser != nullptr) continue;
     auto creator = reg->body;
     auto attr_parser = [creator](NodeAttrs* attrs) {
-      if (attrs->parsed.empty()) {
-        ParsedOpProp op;
-        op.ptr.reset(creator());
-        op.Init(*attrs);
-        attrs->parsed = std::move(op);
-      }
+      ParsedOpProp op;
+      op.ptr.reset(creator());
+      op.Init(*attrs);
+      attrs->parsed = std::move(op);
     };
     op.add_arguments(reg->arguments);
     op.describe(reg->description);
